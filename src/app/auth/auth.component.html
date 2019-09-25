@@ -1,4 +1,4 @@
-<div class="card text-center">
+<div class="card text-center mb-5">
   <div class="card-header text-white bg-dark ">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item hover-pointer">
@@ -15,6 +15,7 @@
     <div class="row">
       <div class="col-12">
         <app-login *ngIf="authComponent === 'login'"></app-login>
+        <app-signup *ngIf="authComponent === 'signup'"></app-signup>
       </div>
     </div>
   </div>
