@@ -1,0 +1,21 @@
+<div class="card text-center">
+  <div class="card-header text-white bg-dark ">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item hover-pointer">
+        <a class="nav-link" (click)="openAuthComponent('login')"
+          [ngClass]="{'active text-dark': authComponent === 'login'}">Login</a>
+      </li>
+      <li class="nav-item hover-pointer">
+        <a class="nav-link" (click)="openAuthComponent('signup')"
+          [ngClass]="{'active text-dark': authComponent === 'signup'}">Signup</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <app-login *ngIf="authComponent === 'login'"></app-login>
+      </div>
+    </div>
+  </div>
+</div>

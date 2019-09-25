@@ -9,3 +9,8 @@
 html, body {
   font-family: 'Raleway', sans-serif;
 }
+
+/* Custom class placed here so as to be applied to various elements throughout the app. */
+.hover-pointer:hover {
+	cursor: pointer;
+}
