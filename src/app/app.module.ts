@@ -11,6 +11,11 @@ import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AlertComponent } from './alert/alert.component';
+
+//Services
+import { AlertService } from './alert/alert.service';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,8 @@ import { SignupComponent } from './auth/signup/signup.component';
     HeaderComponent,
     AuthComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +32,10 @@ import { SignupComponent } from './auth/signup/signup.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AlertService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
