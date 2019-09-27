@@ -1,3 +1,7 @@
 a {
     font-family: 'Vibes', cursive;
 }
+
+.nav-link {
+    font-family: inherit;
+}
