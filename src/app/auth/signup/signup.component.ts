@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -8,15 +9,19 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SignupComponent implements OnInit {
 
-  model;
+  d;
+ 
+  minDate: NgbDate = new NgbDate(1960, 1, 1);
 
-  minDate: NgbDate = new NgbDate(1960, 1, 1);  
-
-  maxDate: NgbDate = new NgbDate(2002, 12, 31);  
+  maxDate: NgbDate = new NgbDate(2002, 12, 31);
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSubmit(signupForm: NgForm) {
+    console.log(signupForm);
   }
 
 }
