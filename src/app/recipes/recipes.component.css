@@ -1,3 +1,21 @@
-.recipes-container {
+/* .recipes-container {
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+    max-height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    bottom: 10px;
+} */
+
+.search-results {
+    height: 20rem;
+    overflow: scroll;
 }
+
+.example-viewport {
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+    height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    display: flex;
+   }

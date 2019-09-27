@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesComponent implements OnInit {
 
+  items = [];
+
   constructor() { }
 
   ngOnInit() {
+    for(let i = 0; i < 101; i++) {
+      this.items.push(i);
+    }
   }
 
 }

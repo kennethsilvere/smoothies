@@ -2,8 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-// Import for angular-bootstrap
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
+// Third party
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppRoutingModule } from './app-routing.module';
 
 
@@ -18,6 +21,7 @@ import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { AuthService } from './auth/auth.service';
 import { RecipesComponent } from './recipes/recipes.component';
+import { SmoothieRecipeComponent } from './recipes/smoothie-recipe/smoothie-recipe.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +31,16 @@ import { RecipesComponent } from './recipes/recipes.component';
     LoginComponent,
     SignupComponent,
     AlertComponent,
-    RecipesComponent
+    RecipesComponent,
+    SmoothieRecipeComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ScrollingModule
   ],
   providers: [
     AlertService,
