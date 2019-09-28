@@ -16,7 +16,8 @@ export class AuthService {
 
   users = [
     new User('Kenneth', 
-             'Silvere', 
+             'Silvere',
+             'kennethsilvere',
              'kennethsilvere93@gmail.com', 
              new Date("1993-11-10"),
              'testpassword')
@@ -31,7 +32,7 @@ export class AuthService {
 
   public login(userLogin: any) {
     for(const user of this.users) {
-      if(user.email === userLogin.email) {
+      if(user.username === userLogin.username) {
         if(userLogin.password === user.password) {
           this.loggedIn = true;
           this.currentLoggedInUser = user;
@@ -43,7 +44,7 @@ export class AuthService {
           this.alertService.showAlert('danger', 'Sorry wrong password');   
         }
       } else {
-        this.alertService.showAlert('danger', 'Sorry email not found.');   
+        this.alertService.showAlert('danger', 'Sorry username not found.');   
       }
     }    
   }
@@ -58,7 +59,7 @@ export class AuthService {
 
   public signUp(signingUpUser: User) {
     for(let user of this.users) {
-      if(user.email.trim().toLowerCase() === signingUpUser.email.trim().toLowerCase()) {
+      if(user.username.trim() === signingUpUser.username.trim()) {
         this.alertService.showAlert('danger', 'User already exits. Please login.');
         return;
       }

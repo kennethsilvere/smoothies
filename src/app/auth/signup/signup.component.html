@@ -81,6 +81,27 @@
     </div>
 
     <div class="form-group">
+        <label for="username">Username</label>
+        <input
+         type="text"
+         class="form-control"
+         id="username"
+         name="username"
+         placeholder="Username"
+         ngModel
+         #username="ngModel"
+         required
+         minlength="4">
+         <small
+          class="form-text text-danger mt-2 mb-4 text-center"
+          *ngIf="(username.touched && username.errors) && (username.errors.required)">Please enter a username.</small>
+         <small
+          class="form-text text-danger mt-2 mb-4 text-center"
+          *ngIf="(username.dirty && username.errors) && (username.errors.minlength)">Username has to be atleast 4 characters.</small>
+    </div>
+
+
+    <div class="form-group">
         <label for="password">Password</label>
         <input
          type="password"
