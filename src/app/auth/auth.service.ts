@@ -10,6 +10,8 @@ export class AuthService {
 
   private loggedIn = false;
 
+  public currentLoggedInUser: User;
+
   public isAuthenticated = new Subject<boolean>();
 
   users = [
@@ -29,20 +31,18 @@ export class AuthService {
 
   public login(userLogin: any) {
     for(const user of this.users) {
-      if(user.email == userLogin.email) {
-        if(userLogin.password == user.password) {
-          this.loggedIn = true;   
-          console.log('Logged in!');    
+      if(user.email === userLogin.email) {
+        if(userLogin.password === user.password) {
+          this.loggedIn = true;
+          this.currentLoggedInUser = user;
           this.alertService.showAlert('success', 'Logged in!');
           this.broadcastAuthStatus();
           this.router.navigateByUrl("'/recipes'");   
         } else {
           this.loggedIn = false;
-          console.log("Sorry wrong password");
           this.alertService.showAlert('danger', 'Sorry wrong password');   
         }
       } else {
-        console.log("Sorry email not found.");
         this.alertService.showAlert('danger', 'Sorry email not found.');   
       }
     }    
@@ -51,8 +51,20 @@ export class AuthService {
   public logout() {
     this.alertService.showAlert('primary', 'Logged out!');
     this.loggedIn = false;
+    this.currentLoggedInUser = undefined;
     this.broadcastAuthStatus();
     this.router.navigateByUrl("''");   
+  }
+
+  public signUp(signingUpUser: User) {
+    for(let user of this.users) {
+      if(user.email.trim().toLowerCase() === signingUpUser.email.trim().toLowerCase()) {
+        this.alertService.showAlert('danger', 'User already exits. Please login.');
+        return;
+      }
+    }
+    this.users.push(signingUpUser);
+    this.alertService.showAlert('primary', 'User signed up. Please login.');
   }
 
   private broadcastAuthStatus() {    

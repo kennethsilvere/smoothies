@@ -90,10 +90,14 @@
          placeholder="Password"
          ngModel
          #password="ngModel"
-         required>
+         required
+         minlength="8">
          <small
           class="form-text text-danger mt-2 mb-4 text-center"
           *ngIf="(password.touched && password.errors) && (password.errors.required)">Please enter your password.</small>
+         <small
+          class="form-text text-danger mt-2 mb-4 text-center"
+          *ngIf="(password.dirty && password.errors) && (password.errors.minlength)">Password has to be atleast 8 characters.</small>
     </div>
 
     <button type="submit" class="btn btn-outline-dark btn-block" [disabled]="signUpForm.invalid">Signup</button>

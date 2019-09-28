@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand text-white hover-pointer" [routerLink]="'/'">
+    <a class="navbar-brand text-white hover-pointer" [routerLink]="loggedIn == true ? recipesLink : authLink">
       <i class="fas fa-carrot"></i>
       Smoothies
     </a>
@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngClass]="{'show': unCollapse}">
         <ul class="navbar-nav">
           <li *ngIf="loggedIn"  class="nav-item">
-            <a class="nav-link" [routerLink]="'/recipes'">Recipes</a>
+            <a class="nav-link" [routerLink]="recipesLink">Recipes</a>
           </li>
           <li *ngIf="loggedIn" class="nav-item logout-button hover-pointer">
             <a class="nav-link" (click)="logout()">Logout</a>

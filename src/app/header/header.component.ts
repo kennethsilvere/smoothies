@@ -8,9 +8,13 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   
-  loggedIn: boolean = false;
+  private loggedIn: boolean = false;
 
-  unCollapse = false;
+  private unCollapse = false;
+
+  private authLink = '/';
+
+  private recipesLink = '/recipes';
 
   constructor(private authService: AuthService) { }
 
