@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { User } from '../shared/user.model';
-import { AlertService } from '../alert/alert.service';
+import { AlertService } from '../shared/alert/alert.service';
 
 @Injectable()
 export class AuthService {

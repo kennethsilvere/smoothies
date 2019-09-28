@@ -15,12 +15,12 @@ import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from './shared/alert/alert.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { SmoothieRecipeComponent } from './recipes/smoothie-recipe/smoothie-recipe.component';
 
 //Services
-import { AlertService } from './alert/alert.service';
+import { AlertService } from './shared/alert/alert.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 
