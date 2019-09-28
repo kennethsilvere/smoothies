@@ -14,6 +14,8 @@ export class AuthService {
 
   public isAuthenticated = new Subject<boolean>();
 
+  public userSignedUp = new Subject<boolean>();
+
   users = [
     new User('Kenneth', 
              'Silvere',
@@ -38,7 +40,7 @@ export class AuthService {
           this.currentLoggedInUser = user;
           this.alertService.showAlert('success', 'Logged in!');
           this.broadcastAuthStatus();
-          this.router.navigateByUrl("'/recipes'");   
+          this.router.navigateByUrl("recipes");   
         } else {
           this.loggedIn = false;
           this.alertService.showAlert('danger', 'Sorry wrong password');   
@@ -60,12 +62,13 @@ export class AuthService {
   public signUp(signingUpUser: User) {
     for(let user of this.users) {
       if(user.username.trim() === signingUpUser.username.trim()) {
-        this.alertService.showAlert('danger', 'User already exits. Please login.');
+        this.alertService.showAlert('danger', 'User already exits. Please try another username.');
         return;
       }
     }
     this.users.push(signingUpUser);
     this.alertService.showAlert('primary', 'User signed up. Please login.');
+    this.userSignedUp.next(true);
   }
 
   private broadcastAuthStatus() {    
