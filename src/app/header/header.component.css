@@ -5,3 +5,11 @@ a {
 .nav-link {
     font-family: inherit;
 }
+
+.logout-button {
+    position: absolute;
+    padding: 0;
+    right: 20px;
+    border: 1px solid #608399;
+    border-radius: 5px;
+}

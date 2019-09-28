@@ -8,8 +8,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngClass]="{'show': unCollapse}">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li *ngIf="loggedIn"  class="nav-item">
             <a class="nav-link" [routerLink]="'/recipes'">Recipes</a>
+          </li>
+          <li *ngIf="loggedIn" class="nav-item logout-button hover-pointer">
+            <a class="nav-link" (click)="logout()">Logout</a>
           </li>
         </ul>
       </div>

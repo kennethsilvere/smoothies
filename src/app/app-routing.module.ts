@@ -3,12 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthComponent } from './auth/auth.component';
 import { RecipesComponent } from './recipes/recipes.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
-  { path: '', component: AuthComponent },
-  { path: 'recipes', component: RecipesComponent },
-  { path: '**', component: RecipesComponent}
+  { path: '', component: AuthComponent},
+  { path: 'recipes', component: RecipesComponent, canActivate: [AuthGuard]  },
+  { path: '**', component: RecipesComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
