@@ -1,22 +1,22 @@
 <form class="text-left" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
   <div class="form-group">
-    <label for="email">Username</label>
+    <label for="email">Email address</label>
     <input
-      type="text"
+      type="email"
       class="form-control"
-      id="username"
-      name="username"
-      placeholder="Enter username"
+      id="email"
+      name="email"
+      placeholder="Enter email"
       ngModel
       required
-      minlength="4"
-      #username="ngModel">
+      email
+      #email="ngModel">
     <small
      class="form-text text-danger mt-2 mb-4 text-center"
-     *ngIf="(username.touched && username.errors) && (username.errors.required)">Please enter a username.</small>
+     *ngIf="(email.touched && email.errors) && (email.errors.required)">Please enter a valid email id.</small>
     <small
      class="form-text text-danger mt-2 mb-4 text-center"
-     *ngIf="(username.dirty && username.errors) && (username.errors.minlength)">Username has to be atleast 4 characters.</small>
+     *ngIf="(email.touched && email.errors) && (email.errors.email)">Email id not valid.</small>
   </div>
 
   <div class="form-group">

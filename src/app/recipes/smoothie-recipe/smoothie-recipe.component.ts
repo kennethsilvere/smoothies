@@ -18,11 +18,7 @@ export class SmoothieRecipeComponent implements OnInit {
   constructor(private authService: AuthService, private appModalService: ModalService) { }
 
   ngOnInit() {
-    if(this.authService.currentLoggedInUser.username.trim().toLowerCase() === 'admin'.trim().toLowerCase()) {
-      this.isAdminLoggedIn = true;
-    } else {
-      this.isAdminLoggedIn = false;
-    }
+    this.isAdminLoggedIn = this.authService.isAdminLoggedIn;
   }
 
   editRecipe() {

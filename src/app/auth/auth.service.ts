@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 import { User } from '../shared/user.model';
 import { AlertService } from '../shared/alert/alert.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
   public currentLoggedInUser: User;
   public isAuthenticated = new Subject<boolean>();
   public userSignedUp = new Subject<boolean>();
-  public isAdminLoggedIn = new Subject<boolean>();
+  public isAdminLoggedIn = false;
 
   constructor(private alertService: AlertService, 
               private router: Router,
@@ -23,40 +24,21 @@ export class AuthService {
     return this.loggedIn;
   }
 
-
   public login(userLogin: any) {
-    // for(const user of this.users) {
-    //   if(user.username === userLogin.username) {
-    //     if(userLogin.password === user.password) {
-    //       this.loggedIn = true;
-    //       this.currentLoggedInUser = user;
-    //       this.alertService.showAlert('success', 'Logged in!');
-    //       this.broadcastAuthStatus();
-    //       this.router.navigateByUrl("recipes");
-    //       this.checkIfAdmin();
-    //       return;
-    //     } else {
-    //       this.loggedIn = false;
-    //       this.alertService.showAlert('danger', 'Sorry wrong password');   
-    //     }
-    //   }
-    // }
-    // this.alertService.showAlert('danger', 'Sorry username not found.');  
-
     this.afAuth.auth
     .signInWithEmailAndPassword(userLogin.email, userLogin.password)
-    .then(result => {
-      console.log(result);
+    .then((result: any) => {
       this.loggedIn = true;
-      this.currentLoggedInUser = userLogin;
+      this.currentLoggedInUser = userLogin.email;
       this.alertService.showAlert('success', 'Logged in!');
       this.broadcastAuthStatus();
       this.router.navigateByUrl("recipes");
-      this.checkIfAdmin();
+      this.checkIfAdmin(result.user.uid);
     })
     .catch(error => {
-      console.log(error);
-      this.alertService.showAlert('danger', 'error.message');
+      this.loggedIn = false;
+      this.currentLoggedInUser = null;
+      this.alertService.showAlert('danger', error.message);
     });
   }
 
@@ -84,11 +66,11 @@ export class AuthService {
     this.isAuthenticated.next(this.loggedIn);
   }
 
-  private checkIfAdmin() {
-    if(this.currentLoggedInUser.username === 'admin') {   
-      this.isAdminLoggedIn.next(true);            
+  private checkIfAdmin(adminUid) {
+    if(environment.adminUid == adminUid) {
+      this.isAdminLoggedIn = true;            
     } else {
-      this.isAdminLoggedIn.next(false);
+      this.isAdminLoggedIn = false;
     }
   }
 }
