@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { User } from '../shared/user.model';
 import { AlertService } from '../shared/alert/alert.service';
@@ -14,25 +15,9 @@ export class AuthService {
   public userSignedUp = new Subject<boolean>();
   public isAdminLoggedIn = new Subject<boolean>();
 
-  users = [
-    new User(
-      'Kenneth', 
-      'Silvere',
-      'kennethsilvere',
-      'kennethsilvere93@gmail.com', 
-      new Date("1993-11-10"),
-      'testpassword'),      
-    new User(
-      'admin',
-      'admin',
-      'admin',
-      'admin@gmail.com',
-      new Date("1993-11-10"),
-      'uO4hb<pki>g>O%yP$sfI'
-    )
-  ];
-
-  constructor(private alertService: AlertService, private router: Router) { }
+  constructor(private alertService: AlertService, 
+              private router: Router,
+              private afAuth: AngularFireAuth) { }
 
   isAuth() {
     return this.loggedIn;
@@ -40,23 +25,39 @@ export class AuthService {
 
 
   public login(userLogin: any) {
-    for(const user of this.users) {
-      if(user.username === userLogin.username) {
-        if(userLogin.password === user.password) {
-          this.loggedIn = true;
-          this.currentLoggedInUser = user;
-          this.alertService.showAlert('success', 'Logged in!');
-          this.broadcastAuthStatus();
-          this.router.navigateByUrl("recipes");
-          this.checkIfAdmin();
-          return;
-        } else {
-          this.loggedIn = false;
-          this.alertService.showAlert('danger', 'Sorry wrong password');   
-        }
-      }
-    }
-    this.alertService.showAlert('danger', 'Sorry username not found.');  
+    // for(const user of this.users) {
+    //   if(user.username === userLogin.username) {
+    //     if(userLogin.password === user.password) {
+    //       this.loggedIn = true;
+    //       this.currentLoggedInUser = user;
+    //       this.alertService.showAlert('success', 'Logged in!');
+    //       this.broadcastAuthStatus();
+    //       this.router.navigateByUrl("recipes");
+    //       this.checkIfAdmin();
+    //       return;
+    //     } else {
+    //       this.loggedIn = false;
+    //       this.alertService.showAlert('danger', 'Sorry wrong password');   
+    //     }
+    //   }
+    // }
+    // this.alertService.showAlert('danger', 'Sorry username not found.');  
+
+    this.afAuth.auth
+    .signInWithEmailAndPassword(userLogin.email, userLogin.password)
+    .then(result => {
+      console.log(result);
+      this.loggedIn = true;
+      this.currentLoggedInUser = userLogin;
+      this.alertService.showAlert('success', 'Logged in!');
+      this.broadcastAuthStatus();
+      this.router.navigateByUrl("recipes");
+      this.checkIfAdmin();
+    })
+    .catch(error => {
+      console.log(error);
+      this.alertService.showAlert('danger', 'error.message');
+    });
   }
 
   public logout() {
@@ -68,15 +69,15 @@ export class AuthService {
   }
 
   public signUp(signingUpUser: User) {
-    for(let user of this.users) {
-      if(user.username.trim() === signingUpUser.username.trim()) {
-        this.alertService.showAlert('danger', 'User already exits. Please try another username.');
-        return;
-      }
-    }
-    this.users.push(signingUpUser);
-    this.alertService.showAlert('primary', 'User signed up. Please login.');
-    this.userSignedUp.next(true);
+    this.afAuth.auth
+      .createUserWithEmailAndPassword(signingUpUser.email, signingUpUser.password)
+      .then(result => {
+        this.alertService.showAlert('primary', 'User signed up. Please login.');
+        this.userSignedUp.next(true);
+      })
+      .catch(error => {
+        this.alertService.showAlert('danger', error.message);
+      });
   }
 
   private broadcastAuthStatus() {    

@@ -6,6 +6,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 // Third party
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,6 +28,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ModalService } from './shared/modal/modal.service';
 import { RecipeService } from './recipes/recipe.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { RecipeService } from './recipes/recipe.service';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    ScrollingModule
+    ScrollingModule,    
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
   ],
   providers: [
     AlertService,
