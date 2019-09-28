@@ -1,0 +1,54 @@
+<div *ngIf="!showEditRecipeModal" class="card w-75">
+  <div class="card-body">
+    <div *ngIf="confirmDelete">
+      <h5 class="card-title">Confirm</h5>
+      <p class="card-text">Do you really want to delete this recipe?</p>
+      <button class="btn btn-primary mr-5" (click)="hideModal()">Yes</button>
+      <button class="btn btn-danger" (click)="hideModal()">No</button>
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="showEditRecipeModal">
+  <div class="card my-3">
+    <div class="card-body">
+      <form class="text-left" #editRecipeForm="ngForm">
+        <label for="first-name">Recipe Name</label>
+        <input type="text" class="form-control" id="recipe-name" name="recipeName" placeholder="Recipe name"
+          ngModel="{{ recipeToEdit.title }}" #recipeName="ngModel" required>
+        <small class="form-text text-danger mt-2 mb-4 text-center"
+          *ngIf="(recipeName.touched && recipeName.errors) && (recipeName.errors.required)">Please enter a recipe
+          name.</small>
+
+        <label class="mt-5" for="last-name">Ingredients</label>
+        <button class="btn text-primary addIngredientButton" (click)="addIngredient()"><i
+            class="fas fa-plus-circle"></i></button>
+        <div class="form-row mt-2" *ngFor="let ingredient of recipeToEdit.ingredients; let ind = index;">
+          <div class="col">
+            <input type="text" class="form-control" name="ingredientName{{ind}}" placeholder="Ingredient name"
+              [ngModel]="ingredient.name" required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="ingredientAmount{{ind}}" placeholder="Amount"
+              [ngModel]="ingredient.quantity" required>
+          </div>
+          <div class="col">
+            <button class="btn" (click)="deleteIngredient(ind)">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-row mt-5">
+          <div class="col">
+            <button class="btn btn-primary btn-block" (click)="saveRecipe()">Save</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

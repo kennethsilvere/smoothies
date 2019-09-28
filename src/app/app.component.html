@@ -1,6 +1,12 @@
+<div *ngIf="(showModal$ | async)">
+    <div class="backdrop"></div>
+    <app-modal [showEditRecipeModal]="recipeEditModal" [recipeToEdit]="recipeToEdit"></app-modal>
+</div>
+
 <app-header></app-header>
 <app-alert *ngIf="showAlert" [cssClass]="alertCSSClass" [message]="alertMessage"></app-alert>
 
 <div class="container">
     <router-outlet></router-outlet>
 </div>
+

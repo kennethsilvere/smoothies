@@ -1,10 +1,10 @@
-<cdk-virtual-scroll-viewport itemSize="50" class="cdk-viewport card mt-2" >
+<cdk-virtual-scroll-viewport itemSize="50" class="cdk-viewport card mt-2" *ngIf="!refresh">
     <h5 class="card-header bg-dark text-white">Quick Smoothie Recipes</h5>
     <div class="row">
-        <div *cdkVirtualFor="let recipe of recipes" class="col-12 col-md-4">
+        <div *cdkVirtualFor="let recipe of recipes; trackBy: trackElement" class="col-12 col-md-4">
             <app-smoothie-recipe
              [recipeName]="recipe.title"
-             [recipeIngredients]="recipe.ingredients"></app-smoothie-recipe>
+             [recipeIngredients]="recipe.ingredients.slice()"></app-smoothie-recipe>
           </div>
     </div>
 </cdk-virtual-scroll-viewport>

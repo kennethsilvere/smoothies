@@ -1,0 +1,19 @@
+.card {
+    position: fixed;
+    z-index: 2;
+    top: 20%;
+    left: 10%;
+    padding: 1rem;
+    max-width: 600px;
+}
+
+.addIngredientButton {
+    font-size: 1.5rem;
+}
+
+@media (min-width: 992px) { 
+    .card {
+        left: 30%;
+    }
+
+}

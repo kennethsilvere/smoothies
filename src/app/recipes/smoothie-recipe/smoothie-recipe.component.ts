@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Ingredient } from '../ingredient.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ModalService } from 'src/app/shared/modal/modal.service';
 
 @Component({
   selector: 'app-smoothie-recipe',
@@ -14,7 +15,7 @@ export class SmoothieRecipeComponent implements OnInit {
   @Input() recipeIngredients: Ingredient[];
   isAdminLoggedIn: boolean;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private appModalService: ModalService) { }
 
   ngOnInit() {
     if(this.authService.currentLoggedInUser.username.trim().toLowerCase() === 'admin'.trim().toLowerCase()) {
@@ -24,8 +25,15 @@ export class SmoothieRecipeComponent implements OnInit {
     }
   }
 
-  editRecipe() {}
+  editRecipe() {
+    this.appModalService.openModal();
+    this.appModalService.editRecipe(this.recipeName);
+  }
 
-  deleteRecipe() {}
+  deleteRecipe() {
+    this.appModalService.openModal();
+    console.log('delete');
+    console.log(this.recipeName);
+  }
 
 }

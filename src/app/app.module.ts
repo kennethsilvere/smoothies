@@ -18,11 +18,14 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { SmoothieRecipeComponent } from './recipes/smoothie-recipe/smoothie-recipe.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
 //Services
 import { AlertService } from './shared/alert/alert.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
+import { ModalService } from './shared/modal/modal.service';
+import { RecipeService } from './recipes/recipe.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { AuthGuard } from './auth/auth.guard';
     SignupComponent,
     AlertComponent,
     RecipesComponent,
-    SmoothieRecipeComponent
+    SmoothieRecipeComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { AuthGuard } from './auth/auth.guard';
   providers: [
     AlertService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    ModalService,
+    RecipeService
   ],
   bootstrap: [AppComponent]
 })
