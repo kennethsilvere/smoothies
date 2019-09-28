@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+
+import * as recipesData from './recipes-data';
+import { Recipe } from './recipe.model';
 
 @Component({
   selector: 'app-recipes',
@@ -7,14 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesComponent implements OnInit {
 
-  items = [];
+
+  @ViewChild(CdkVirtualScrollViewport, {static: false}) viewPort: CdkVirtualScrollViewport;
+
+
+  recipes: Recipe[] = recipesData.recipeList;
 
   constructor() { }
 
   ngOnInit() {
-    for(let i = 0; i < 101; i++) {
-      this.items.push(i);
-    }
   }
 
 }

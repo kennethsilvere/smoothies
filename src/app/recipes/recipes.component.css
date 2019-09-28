@@ -11,7 +11,7 @@
     overflow: scroll;
 }
 
-.example-viewport {
+.cdk-viewport {
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
     height: 90vh;
     overflow-y: scroll;
@@ -19,3 +19,8 @@
     width: 100%;
     display: flex;
    }
+
+.row {
+  padding-left: 20px;
+  padding-right: 20px;
+}

@@ -1,24 +1,10 @@
-<!-- <div class="row mt-3 justify-content-md-center">
-  <div class="col-12 col-md-12">
-    <div class="card recipes-container">
-      <h5 class="card-header">Smoothie Recipes</h5>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-4" *ngFor="let recipe of recipes">
-            <app-smoothie-recipe></app-smoothie-recipe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
- -->
-
-<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport card mt-2">
-    <h5 class="card-header ">Smoothie Recipes</h5>
-    <div class="row">      
-        <div *cdkVirtualFor="let item of items" class="col-12 col-md-4">
-            <app-smoothie-recipe></app-smoothie-recipe>
+<cdk-virtual-scroll-viewport itemSize="50" class="cdk-viewport card mt-2" >
+    <h5 class="card-header bg-dark text-white">Quick Smoothie Recipes</h5>
+    <div class="row">
+        <div *cdkVirtualFor="let recipe of recipes" class="col-12 col-md-4">
+            <app-smoothie-recipe
+             [recipeName]="recipe.title"
+             [recipeIngredients]="recipe.ingredients"></app-smoothie-recipe>
           </div>
     </div>
 </cdk-virtual-scroll-viewport>
