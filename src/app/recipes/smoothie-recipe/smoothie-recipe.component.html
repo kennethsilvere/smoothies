@@ -12,4 +12,12 @@
             </li>
           </ul>
     </div>
+    <div *ngIf="isAdminLoggedIn" class="card-footer text-muted">
+      <button class="btn" (click)="editRecipe()">
+          <i class="fas fa-edit"></i>        
+      </button>
+      <button class="btn float-right" (click)="deleteRecipe()">
+          <i class="far fa-trash-alt"></i>
+      </button>
+    </div>
 </div>

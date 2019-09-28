@@ -136,10 +136,7 @@ export const recipeList = [
           new Ingredient('Frozen sliced peaches' , '2 cups'),
           new Ingredient('Buttermilk' , '1 1/2 cup'),
           new Ingredient('Brown sugar' , '3 tablespoons'),
-          new Ingredient('Grated ginger' , '1 tablespoon'),
-          new Ingredient('' , ''),
-          new Ingredient('' , ''),
-          new Ingredient('' , '')
+          new Ingredient('Grated ginger' , '1 tablespoon')
       ]
   ),
   new Recipe(

@@ -9,20 +9,27 @@ import { AlertService } from '../alert/alert.service';
 export class AuthService {
 
   private loggedIn = false;
-
   public currentLoggedInUser: User;
-
   public isAuthenticated = new Subject<boolean>();
-
   public userSignedUp = new Subject<boolean>();
+  public isAdminLoggedIn = new Subject<boolean>();
 
   users = [
-    new User('Kenneth', 
-             'Silvere',
-             'kennethsilvere',
-             'kennethsilvere93@gmail.com', 
-             new Date("1993-11-10"),
-             'testpassword')
+    new User(
+      'Kenneth', 
+      'Silvere',
+      'kennethsilvere',
+      'kennethsilvere93@gmail.com', 
+      new Date("1993-11-10"),
+      'testpassword'),      
+    new User(
+      'admin',
+      'admin',
+      'admin',
+      'admin@gmail.com',
+      new Date("1993-11-10"),
+      'uO4hb<pki>g>O%yP$sfI'
+    )
   ];
 
   constructor(private alertService: AlertService, private router: Router) { }
@@ -40,15 +47,16 @@ export class AuthService {
           this.currentLoggedInUser = user;
           this.alertService.showAlert('success', 'Logged in!');
           this.broadcastAuthStatus();
-          this.router.navigateByUrl("recipes");   
+          this.router.navigateByUrl("recipes");
+          this.checkIfAdmin();
+          return;
         } else {
           this.loggedIn = false;
           this.alertService.showAlert('danger', 'Sorry wrong password');   
         }
-      } else {
-        this.alertService.showAlert('danger', 'Sorry username not found.');   
       }
-    }    
+    }
+    this.alertService.showAlert('danger', 'Sorry username not found.');  
   }
 
   public logout() {
@@ -73,5 +81,13 @@ export class AuthService {
 
   private broadcastAuthStatus() {    
     this.isAuthenticated.next(this.loggedIn);
+  }
+
+  private checkIfAdmin() {
+    if(this.currentLoggedInUser.username === 'admin') {   
+      this.isAdminLoggedIn.next(true);            
+    } else {
+      this.isAdminLoggedIn.next(false);
+    }
   }
 }
