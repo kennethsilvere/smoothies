@@ -68,7 +68,6 @@ export class RecipeService{
     this.db.doc<Recipe>(`/smoothie-recipes/${documentId}`).update(recipe)
     .then(
       success => {
-        console.log(success);
         this.broadcastRecipeList();
         this.alertService.showAlert('success', 'Recipe edited!');
         },

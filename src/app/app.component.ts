@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AlertService } from './shared/alert/alert.service';
 import { ModalService } from './shared/modal/modal.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { RecipeService } from './recipes/recipe.service';
 import { Recipe } from './recipes/recipe.model';
 
@@ -11,7 +11,7 @@ import { Recipe } from './recipes/recipe.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy{
 
   title = 'smoothies';
   showAlert = false;
@@ -21,6 +21,9 @@ export class AppComponent implements OnInit{
   recipeEditModal = false;
   recipeToEdit: Recipe;
   recipeToBeDeleted: string;
+  private alertSubscription: Subscription;
+  private recipeEditSubscription: Subscription;
+  private recipeDeleteSubsription: Subscription;
 
 
   constructor(private alertService: AlertService, private modalService: ModalService, private recipeService: RecipeService) { }
@@ -28,23 +31,28 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.showModal$ = this.modalService.modelOpen;
 
-    this.alertService.alert.subscribe((alertData: any) => {
+    this.alertSubscription = this.alertService.alert.subscribe((alertData: any) => {
       this.showAlert = true;
       this.alertMessage = alertData.message;
       this.alertCSSClass = alertData.cssClass;
       setTimeout(() => this.showAlert = false, 4000);
     });
 
-    this.modalService.recipeEdit.subscribe((recipeName) => {
-      console.log('recipe edit - modal');
+    this.recipeEditSubscription = this.modalService.recipeEdit.subscribe((recipeName) => {
       this.recipeEditModal = true
       const recipeForEditing = this.recipeService.getRecipe(recipeName);
       this.recipeToEdit = { ...recipeForEditing }
     });
 
-    this.recipeService.recipeDelete.subscribe((recipeName) => {
+    this.recipeDeleteSubsription = this.recipeService.recipeDelete.subscribe((recipeName) => {
       this.recipeToBeDeleted = this.recipeService.getRecipe(recipeName).id;
       this.recipeEditModal = false;
     });
+  }
+
+  ngOnDestroy() {
+    this.alertSubscription.unsubscribe();
+    this.recipeEditSubscription.unsubscribe();
+    this.recipeDeleteSubsription.unsubscribe();
   }
 }
