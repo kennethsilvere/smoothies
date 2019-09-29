@@ -1,10 +1,13 @@
 # Smoothies
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.4.
+## Setting up the smoothies app in your local machine
+
+Download the project zip file or clone it in your local directory.
+Unzip the file (if zip file downloaded), go in to the project directory using a terminal and run `npm install` to download all the dependencies.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To run the application in your local mahine, run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
