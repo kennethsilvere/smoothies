@@ -20,12 +20,14 @@ export class AppComponent implements OnInit{
   showModal$: Observable<boolean>;
   recipeEditModal = false;
   recipeToEdit: Recipe;
+  recipeToBeDeleted: string;
 
 
   constructor(private alertService: AlertService, private modalService: ModalService, private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.showModal$ = this.modalService.modelOpen;
+
     this.alertService.alert.subscribe((alertData: any) => {
       this.showAlert = true;
       this.alertMessage = alertData.message;
@@ -33,11 +35,16 @@ export class AppComponent implements OnInit{
       setTimeout(() => this.showAlert = false, 4000);
     });
 
-    
     this.modalService.recipeEdit.subscribe((recipeName) => {
       console.log('recipe edit - modal');
       this.recipeEditModal = true
-      this.recipeToEdit = this.recipeService.getRecipe(recipeName);
+      const recipeForEditing = this.recipeService.getRecipe(recipeName);
+      this.recipeToEdit = { ...recipeForEditing }
+    });
+
+    this.recipeService.recipeDelete.subscribe((recipeName) => {
+      this.recipeToBeDeleted = this.recipeService.getRecipe(recipeName).id;
+      this.recipeEditModal = false;
     });
   }
 }

@@ -1,6 +1,6 @@
 <div *ngIf="(showModal$ | async)">
     <div class="backdrop"></div>
-    <app-modal [showEditRecipeModal]="recipeEditModal" [recipeToEdit]="recipeToEdit"></app-modal>
+    <app-modal [showEditRecipeModal]="recipeEditModal" [recipeToEdit]="recipeToEdit" [recipeToBeDeleted]="recipeToBeDeleted"></app-modal>
 </div>
 
 <app-header></app-header>

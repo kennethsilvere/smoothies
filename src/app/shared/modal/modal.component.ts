@@ -12,7 +12,8 @@ import { Ingredient } from 'src/app/recipes/ingredient.model';
 export class ModalComponent implements OnInit {
   
   @Input() showEditRecipeModal: boolean;
-  @Input() recipeToEdit: Recipe;
+  @Input() recipeToEdit: any;
+  @Input() recipeToBeDeleted: string
   
   constructor(private modalService: ModalService, private recipeService: RecipeService) {
   }
@@ -32,12 +33,20 @@ export class ModalComponent implements OnInit {
     this.recipeToEdit.ingredients.push(new Ingredient('', ''));
   }
 
-  cancel() {
+  saveRecipe() {
+    let recipeToBeSaved = {
+      title: this.recipeToEdit.title,
+      ingredients: []
+    };
+    for(let ing of this.recipeToEdit.ingredients) {
+      recipeToBeSaved.ingredients.push(ing);
+    }
     this.hideModal();
-    this.recipeService.broadcastRecipeList();
+    this.recipeService.editDocument(this.recipeToEdit.id, { ...recipeToBeSaved });
   }
 
-  saveRecipe() {
+  deleteRecipe() {
+    this.recipeService.deleteDocument(this.recipeToBeDeleted);
     this.hideModal();
   }
 }

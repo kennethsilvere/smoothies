@@ -1,9 +1,9 @@
 <div *ngIf="!showEditRecipeModal" class="card w-75">
   <div class="card-body">
-    <div *ngIf="confirmDelete">
+    <div>
       <h5 class="card-title">Confirm</h5>
       <p class="card-text">Do you really want to delete this recipe?</p>
-      <button class="btn btn-primary mr-5" (click)="hideModal()">Yes</button>
+      <button class="btn btn-primary mr-5" (click)="deleteRecipe()">Yes</button>
       <button class="btn btn-danger" (click)="hideModal()">No</button>
     </div>
 
@@ -14,7 +14,7 @@
 <div *ngIf="showEditRecipeModal">
   <div class="card my-3">
     <div class="card-body">
-      <form class="text-left" #editRecipeForm="ngForm">
+      <form class="text-left" #editRecipeForm="ngForm" (submit)="saveRecipe()">
         <label for="first-name">Recipe Name</label>
         <input type="text" class="form-control" id="recipe-name" name="recipeName" placeholder="Recipe name"
           ngModel="{{ recipeToEdit.title }}" #recipeName="ngModel" required>
@@ -42,10 +42,7 @@
         </div>
         <div class="form-row mt-5">
           <div class="col">
-            <button class="btn btn-primary btn-block" (click)="saveRecipe()">Save</button>
-          </div>
-          <div class="col">
-            <button class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
+            <button class="btn btn-primary btn-block" type="submit">Save</button>
           </div>
         </div>
       </form>

@@ -29,7 +29,7 @@ export class RecipesComponent implements OnInit {
   trackElement(index: number, element: any) {
     return element.title;
   }
-
+  
   }
 
 

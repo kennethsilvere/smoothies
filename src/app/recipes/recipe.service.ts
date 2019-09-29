@@ -1,18 +1,20 @@
 import { Injectable  } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Recipe } from './recipe.model';
+import { AlertService } from '../shared/alert/alert.service';
 
 @Injectable()
 export class RecipeService{
 
-  private smoothieCollection;
+  private smoothieCollection: AngularFirestoreCollection;
   private recipes: any[];
   public recipeListSubscription = new Subject<any>();
+  public recipeDelete = new Subject<any>();
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private alertService: AlertService) {
     this.smoothieCollection = this.db.collection<Recipe>('smoothie-recipes');
   }
 
@@ -60,6 +62,34 @@ export class RecipeService{
 
   saveRecipeToFirebase(recipe: Recipe) {
     this.smoothieCollection.add({ ...recipe  });
+  }
+
+  editDocument(documentId, recipe) {
+    this.db.doc<Recipe>(`/smoothie-recipes/${documentId}`).update(recipe)
+    .then(
+      success => {
+        console.log(success);
+        this.broadcastRecipeList();
+        this.alertService.showAlert('success', 'Recipe edited!');
+        },
+      (error: any) => {
+        this.broadcastRecipeList();
+        this.alertService.showAlert('danger', error.mesage);
+      });
+  }
+
+  deleteDocument(documentId) {
+    this.db.doc<Recipe>(`/smoothie-recipes/${documentId}`).delete()
+    .then(
+      success => {
+        console.log(success);
+        this.broadcastRecipeList();
+        this.alertService.showAlert('success', 'Recipe DELETED!');
+        },
+      (error: any) => {
+        this.broadcastRecipeList();
+        this.alertService.showAlert('danger', error.mesage);
+      });
   }
 
 }
