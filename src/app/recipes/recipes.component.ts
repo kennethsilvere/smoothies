@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
-import * as recipesData from './recipes-data';
 import { Recipe } from './recipe.model';
 import { RecipeService } from './recipe.service';
 
@@ -16,14 +15,14 @@ export class RecipesComponent implements OnInit {
 
   @ViewChild(CdkVirtualScrollViewport, {static: false}) viewPort: CdkVirtualScrollViewport;
 
-  recipes: Recipe[] = this.recipeService.getRecipeList();
+  recipes: Recipe[];
 
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
+    this.recipeService.getRecipeList();
     this.recipeService.recipeListSubscription.subscribe(recipeList => {
       this.recipes = recipeList;
-      console.log(this.recipes);
     });
   }
 
@@ -31,4 +30,6 @@ export class RecipesComponent implements OnInit {
     return element.title;
   }
 
-}
+  }
+
+
