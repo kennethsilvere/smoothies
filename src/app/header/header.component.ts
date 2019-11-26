@@ -9,10 +9,10 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   
-  private loggedIn: boolean = false;
-  private unCollapse = false;
-  private authLink = '/';
-  private recipesLink = '/recipes';
+  public loggedIn: boolean = false;
+  public unCollapse = false;
+  public authLink = '/';
+  public recipesLink = '/recipes';
   private authSubscription: Subscription;
 
   constructor(private authService: AuthService) { }

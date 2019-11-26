@@ -1,5 +1,7 @@
 # Smoothies
 
+# Admin username: admin@admin.com | Admin password: adminadmin
+
 ## Setting up the smoothies app in your local machine
 
 Download the project zip file or clone it in your local directory.
